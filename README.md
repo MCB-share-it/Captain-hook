@@ -1,4 +1,18 @@
 READ ME
+
+'Bot.py' is the script of a discord bot that made in Python which creates keylogs that are linked to your 
+discord server
+
+'webhookcontent'
+is the keylog framework i am using to create others
+"IDfile.txt"
+file in which your store the already created ID's
+
+
+
+
+
+
 ***************
 ***************
 Install python
