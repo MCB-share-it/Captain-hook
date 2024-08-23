@@ -6,7 +6,6 @@ from discord.ext import commands
 from myconfig import *
 import shutil
 
-# TODO: write the code to store the ID files
 
 
 intents = discord.Intents.default()
@@ -85,7 +84,7 @@ async def safe_send(channel, content=None, file=None):
             else:
                 raise 
 
-token = "MTI3MzY5MTgwMTgxMDYzNjg4NA.GyDXnJ.M9hGqxv8Gi9u_P3hUOtv0O9lrxNl4B4UT2nK7A"
+token = "put your bot token"
 bot.run(token)
 
         
