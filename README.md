@@ -30,7 +30,6 @@ discord
 asyncio
 myconfig
 random
-myconfig
 **************
 
 
