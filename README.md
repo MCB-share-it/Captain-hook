@@ -11,13 +11,14 @@ file in which your store the already created ID's
 
 
 
-
+don't forget to change the token with your bot's token
 
 ***************
 ***************
 Install python
 ***************
-
+install PyInstaller before trying to run the bot
+:https://www.youtube.com/watch?v=2X9rxzZbYqg
 
 HOW TO INSTALL THE PYTHON MODULES ?
 pip install 'modulename'
