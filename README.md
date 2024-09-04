@@ -31,6 +31,7 @@ discord
 asyncio
 myconfig
 random
+PyInstaller
 **************
 
 
