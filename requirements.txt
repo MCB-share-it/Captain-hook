@@ -1,0 +1,1 @@
+Python -m pip install threading shutil discord asyncio myconfig random PyInstaller subprocess
