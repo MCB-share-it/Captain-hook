@@ -1,1 +1,0 @@
-pip install shutil discord asyncio myconfig random PyInstaller
