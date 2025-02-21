@@ -34,7 +34,8 @@ def run_batch_file(batch_file_path):
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
 
-        result = subprocess.run([batch_file_path], capture_output=True, text=True)
+        result = subprocess.call(f'start {batch_file_path} ',capture_output=True, shell=True)
+        #result = subprocess.run([batch_file_path], capture_output=True, text=True)
         
         print(result.stdout)
         
@@ -160,7 +161,7 @@ async def hook(ctx):
                 created_webhook = next((w for w in await ctx.guild.webhooks() if w.name == webhookname), None)
                 
                 bat_content = (f'{rand}.py')
-                shutil.copy('webhookcontent.txt', f'{rand}.py')
+                shutil.copy('webhookcontent.py', f'{rand}.py')
                 if created_webhook:
                     python_content = created_webhook.url 
                 else:
@@ -189,4 +190,6 @@ bot.run(token)
         
     
         
+    
+
     
